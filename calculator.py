@@ -5,17 +5,22 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+# creates the main window of the application with title "Calculator"
 box = tk.Tk()
 box.title("Calculator")
 
+# string for the expression to be evaluated
 expr = ''
 
+# text as a string to be set in the window
 text = tk.StringVar()
 
+# allows buttons to be press and the 
 def press(num):
     global expr
     expr += str(num)
     text.set(expr)
+
 
 def clr():
     global expr
@@ -28,9 +33,11 @@ def equal():
     text.set(total)
     expr = total
 
+# creates textbox for the numbers that are pressed to be displayed 
 entry = ttk.Entry(box, textvariable=text, justify='right')
 entry.grid(row=0, columnspan=4, sticky='nsew')
 
+# buttons on the calculator
 button_7 = ttk.Button(box, text='7', command=lambda: press(7))
 button_7.grid(row=1, column=0)
 
@@ -82,5 +89,5 @@ button_a.grid(row=4, column=3)
 button_e = ttk.Button(box, text='=', command=equal)
 button_e.grid(row=5, columnspan=4, sticky='nsew')
 
-
+# starts the program
 box.mainloop()
