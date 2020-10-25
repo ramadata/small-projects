@@ -23,10 +23,10 @@ def press(num):
 
 # evaluates the expression
 def equal():
-    global expr
-    total = str(eval(expr))
+    global expression
+    total = str(eval(expression))
     text.set(total)
-    expr = total
+    expression = total
 
 # clears the calculator
 def clr():
