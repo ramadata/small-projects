@@ -15,18 +15,19 @@ expr = ''
 # text as a string to be set in the window
 text = tk.StringVar()
 
-# allows buttons to be press and the 
+# allows buttons to be press and added to the expression 
 def press(num):
     global expr
     expr += str(num)
     text.set(expr)
 
-
+# clears the calculator
 def clr():
     global expr
     expr = ''
     text.set(expr)
 
+# evaluates the expression
 def equal():
     global expr
     total = str(eval(expr))
