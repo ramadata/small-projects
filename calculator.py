@@ -10,22 +10,16 @@ box = tk.Tk()
 box.title("Calculator")
 
 # string for the expression to be evaluated
-expr = ''
+expression = ''
 
-# text as a string to be set in the window
+# a string to be set in a window
 text = tk.StringVar()
 
-# allows buttons to be press and added to the expression 
+# allows buttons to be pressed and added to the expression 
 def press(num):
-    global expr
-    expr += str(num)
-    text.set(expr)
-
-# clears the calculator
-def clr():
-    global expr
-    expr = ''
-    text.set(expr)
+    global expression
+    expression += str(num)
+    text.set(expression)
 
 # evaluates the expression
 def equal():
@@ -34,7 +28,13 @@ def equal():
     text.set(total)
     expr = total
 
-# creates textbox for the numbers that are pressed to be displayed 
+# clears the calculator
+def clr():
+    global expression
+    expression = ''
+    text.set(expression)
+
+# creates textbox that displays the numbers that are pressed
 entry = ttk.Entry(box, textvariable=text, justify='right')
 entry.grid(row=0, columnspan=4, sticky='nsew')
 
