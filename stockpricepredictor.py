@@ -16,8 +16,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 from sklearn.model_selection import train_test_split
 
-# get with 'WIKI/' returns specific stock
-df = quandl.get("WIKI/UPS")  # UPS: United Parcel Service
+from google.colab import files
+uploaded = files.upload()
+
+df = pd.read_csv("UPS.csv")  # UPS: United Parcel Service
 
 print(df.tail())
 
