@@ -8,12 +8,10 @@ Original file is located at
 """
 
 # import neccessary packages
-# quandl documentation: https://docs.quandl.com/docs/python-tables
 
-!pip install quandl
+
 import pandas as pd
 import numpy as np
-import quandl
 from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 from sklearn.model_selection import train_test_split
@@ -39,14 +37,14 @@ print(df.tail())
 # Create an independent dataset (X) 
 # Convert the dataframe into a numpy array
 X = np.array(df.drop(['Prediction'], 1))
-# Removes the last 30 rows
+# Removes the last "n" rows
 X = X[:-forecast_out]
 print(X)
 
 # Create an dependent dataset (Y)
-# Convert the dataframe into a numpy array
+# Convert the dataframe into a numpy array **INCLUDING THE NaNs**
 Y = np.array(df['Prediction'])
-# Removes the last 30 rows
+# Removes the last 'n' rows
 Y = Y[:-forecast_out]
 print(Y)
 
@@ -55,30 +53,25 @@ x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
 
 # Create and train the Support Vector Machine (Regressor)
 svr_rbf = SVR(kernel='rbf', C=1e3, gamma=0.1)
-# Finds intercepts to create a baseline trend
 svr_rbf.fit(x_train, y_train)
 
-# Gets the accuracy of the model
 svr_c = svr_rbf.score(x_test, y_test)
 print('svr confidence: ', svr_c)
 
 # Create the Linear Regression Model
 lr = LinearRegression()
-# Finds intercepts to create a baseline trend
 lr.fit(x_train, y_train)
 
-# Gets the accuracy of the model
 lr_c = lr.score(x_test, y_test)
 print('linear regression confidence: ', lr_c)
 
-# Sets x_forecast equal to the last 30 rows from "ADJ. Close"
 x_forecast = np.array(df.drop(['Prediction'], 1))[-forecast_out:]
 print(x_forecast)
 
-# Predicts 30 days out using linear regression
 lr_prediction = lr.predict(x_forecast)
 print(lr_prediction)
 
-# Predicts 30 days out using the Support Vector Machine
 svm_prediction = svr_rbf.predict(x_forecast)
 print(svm_prediction)
+
+lr_prediction
